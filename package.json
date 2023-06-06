@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/ymeu/frontend-project-46/issues"
   },
+  "bin": {
+    "gendiff": "bin/gendiff.js"
+  },
   "homepage": "https://github.com/ymeu/frontend-project-46#readme"
 }
