@@ -25,5 +25,8 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
     "prettier": "^2.8.8"
+  },
+  "dependencies": {
+    "commander": "^10.0.1"
   }
 }
