@@ -18,9 +18,9 @@ program
 const [filepath1, filepath2] = program.args;
 
 // resolved relative paths to absolute paths
-const currentWorkingDirectory = process.cwd();
-const resolvedPath1 = path.resolve(currentWorkingDirectory, filepath1);
-const resolvedPath2 = filepath2 ? path.resolve(currentWorkingDirectory, filepath2) : undefined;
+const workingDirectory = process.cwd();
+const resolvedPath1 = path.resolve(workingDirectory, filepath1);
+const resolvedPath2 = filepath2 ? path.resolve(workingDirectory, filepath2) : undefined;
 
 // read and log contents of the files
 const data1 = fs.readFileSync(resolvedPath1, 'utf-8');
