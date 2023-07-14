@@ -3,6 +3,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { program } from 'commander';
 import fs from 'fs';
+import * as path from 'path'; // Import the 'path' module
 
 program
   .name('gendiff')
@@ -16,11 +17,17 @@ program
 
 const [filepath1, filepath2] = program.args;
 
-const data1 = fs.readFileSync(filepath1, 'utf-8');
+// resolved relative paths to absolute paths
+const currentWorkingDirectory = process.cwd();
+const resolvedPath1 = path.resolve(currentWorkingDirectory, filepath1);
+const resolvedPath2 = filepath2 ? path.resolve(currentWorkingDirectory, filepath2) : undefined;
+
+// read and log contents of the files
+const data1 = fs.readFileSync(resolvedPath1, 'utf-8');
 console.log(data1);
 
 if (filepath2) {
-  const data2 = fs.readFileSync(filepath2, 'utf-8');
+  const data2 = fs.readFileSync(resolvedPath2, 'utf-8');
   console.log(data2);
 }
 
@@ -31,6 +38,10 @@ const genDiff = (filepath1, filepath2) => {
 
 export default genDiff;
 
+// list of possible commands to read the contents of the files
 // gendiff __fixtures__/file1.json __fixtures__/file2.json
 // gendiff __fixtures__/file1.json
 // gendiff file1.json file2.json
+// gendiff /Users/alexey/Documents/dev/hexlet/frontend-project-46/__fixtures__/file1.json
+// gendiff /Users/alexey/Documents/dev/hexlet/frontend-project-46/__fixtures__/file2.json
+// gendiff /Users/alexey/Documents/dev/hexlet/frontend-project-46/__fixtures__/file1.json /Users/alexey/Documents/dev/hexlet/frontend-project-46/__fixtures__/file2.json
