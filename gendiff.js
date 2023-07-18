@@ -4,6 +4,14 @@ import * as path from 'path'; // Import the 'path' module
 import _ from 'lodash';
 
 const genDiff = (filepath1, filepath2) => {
+
+  const formatValue = (value) => {
+    if (typeof value === 'string') {
+      return `'${value}'`;
+    }
+    return value;
+  };
+
   const result = {};
 
   // resolved relative paths to absolute paths
@@ -23,24 +31,24 @@ const genDiff = (filepath1, filepath2) => {
 
   for (const key1 of keys1) {
     if (keys2.includes(key1)) {
-      if (data1[key1] === data2[key1]) {
-        result[key1] = data1[key1];
+      if (_.isEqual(data1[key1], data2[key1])) {
+        result[key1] = `    ${key1}: ${formatValue(data1[key1])}`;
       } else {
-        result[`-${key1}`] = data1[key1];
-        result[`+${key1}`] = data2[key1];
+        result[`-${key1}`] = `  - ${key1}: ${formatValue(data1[key1])}`;
+        result[`+${key1}`] = `  + ${key1}: ${formatValue(data2[key1])}`;
       }
     } else {
-      result[`-${key1}`] = data1[key1];
+      result[`-${key1}`] = `  - ${key1}: ${formatValue(data1[key1])}`;
     }
   }
 
   for (const key2 of keys2) {
     if (!keys1.includes(key2)) {
-      result[`+${key2}`] = data2[key2];
+      result[`+${key2}`] = `  + ${key2}: ${formatValue(data2[key2])}`;
     }
   }
 
-  console.log(result);
+  console.log(`{\n${Object.values(result).join('\n')}\n}`);
 };
 
 export default genDiff;
