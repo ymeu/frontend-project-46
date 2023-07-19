@@ -44,6 +44,7 @@ const genDiff = (filepath1, filepath2) => {
     .replace(/,/g, ',\n') // each key from new line
     // eslint-disable-next-line newline-per-chained-call
     .replace('{', '{\n').replace('}', '\n}'); // brackets on new lines
+  // eslint-disable-next-line no-console
   return console.log(stringJSON);
 };
 

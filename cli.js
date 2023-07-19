@@ -24,4 +24,5 @@ program.parse(process.argv);
 // gendiff file1.json file2.json
 // gendiff /Users/alexey/Documents/dev/hexlet/frontend-project-46/__fixtures__/file1.json
 // gendiff /Users/alexey/Documents/dev/hexlet/frontend-project-46/__fixtures__/file2.json
+// eslint-disable-next-line max-len
 // gendiff /Users/alexey/Documents/dev/hexlet/frontend-project-46/__fixtures__/file1.json /Users/alexey/Documents/dev/hexlet/frontend-project-46/__fixtures__/file2.json
