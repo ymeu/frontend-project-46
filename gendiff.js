@@ -4,17 +4,19 @@ import * as path from 'path'; // Import the 'path' module
 // eslint-disable-next-line import/no-extraneous-dependencies
 import _ from 'lodash';
 
-const genDiff = (filepath1, filepath2) => {
-  const result = {};
-
+const getFileData = (filepath) => {
   // resolved relative paths to absolute paths
   const workingDirectory = process.cwd();
-  const resolvedPath1 = path.resolve(workingDirectory, filepath1);
-  const resolvedPath2 = path.resolve(workingDirectory, filepath2);
+  const resolvedPath = path.resolve(workingDirectory, filepath);
 
   // read contents of the files and parse them to return as string rathen than a JSON object
-  const data1 = JSON.parse(fs.readFileSync(resolvedPath1, 'utf-8'));
-  const data2 = JSON.parse(fs.readFileSync(resolvedPath2, 'utf-8'));
+  return JSON.parse(fs.readFileSync(resolvedPath, 'utf-8'));
+};
+
+const genDiff = (filepath1, filepath2) => {
+  const result = {};
+  const data1 = getFileData(filepath1);
+  const data2 = getFileData(filepath2);
 
   // sorting keys alphabatically
   const keys1 = _.sortBy(_.keys(data1));
