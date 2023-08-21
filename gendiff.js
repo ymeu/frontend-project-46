@@ -23,29 +23,29 @@ const genDiff = (filepath1, filepath2) => {
   for (const key1 of keys1) {
     if (keys2.includes(key1)) {
       if (data1[key1] === data2[key1]) {
-        result[`    ${key1}`] = data1[key1];
+        result[`    ${key1}`] = ` ${data1[key1]}`;
       } else {
-        result[`  - ${key1}`] = data1[key1];
-        result[`  + ${key1}`] = data2[key1];
+        result[`  - ${key1}`] = ` ${data1[key1]}`;
+        result[`  + ${key1}`] = ` ${data2[key1]}`;
       }
     } else {
-      result[`  - ${key1}`] = data1[key1];
+      result[`  - ${key1}`] = ` ${data1[key1]}`;
     }
   }
 
   for (const key2 of keys2) {
     if (!keys1.includes(key2)) {
-      result[`  + ${key2}`] = data2[key2];
+      result[`  + ${key2}`] = ` ${data2[key2]}`;
     }
   }
 
   const stringJSON = JSON.stringify(result)
     .replace(/"/g, '') // removing quotes
-    .replace(/,/g, ',\n') // each key from new line
-    // eslint-disable-next-line newline-per-chained-call
-    .replace('{', '{\n').replace('}', '\n}'); // brackets on new lines
-  // eslint-disable-next-line no-console
-  return console.log(stringJSON);
+    .replace(/,/g, '\n') // each key from new line
+    .replace('{', '{\n') // brackets on new lines
+    .replace('}', '\n}'); // brackets on new lines
+
+  return stringJSON;
 };
 
 export default genDiff;
