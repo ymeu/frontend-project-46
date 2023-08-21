@@ -16,8 +16,8 @@ test('genDiff', () => {
     './__fixtures__/file2.json',
   );
   // npm run test -- --silent=false
-  console.log('actual', actual);
-  console.log('expected', expected);
+  // console.log('actual', actual);
+  // console.log('expected', expected);
   expect(actual).toEqual(expected);
 });
 // });
