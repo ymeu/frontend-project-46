@@ -12,8 +12,8 @@ const expected = fs.readFileSync(getFixturePath('expected.txt'), 'utf-8');
 
 test('genDiff', () => {
   const actual = genDiff(
-    './__fixtures__/file1.json',
-    './__fixtures__/file2.json',
+    'file1.json',
+    'file2.json',
   );
   // npm run test -- --silent=false
   // console.log('actual', actual);
