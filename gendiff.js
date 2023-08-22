@@ -1,16 +1,25 @@
 /* eslint-disable no-restricted-syntax */
 import fs from 'fs';
 import * as path from 'path'; // Import the 'path' module
-// eslint-disable-next-line import/no-extraneous-dependencies
 import _ from 'lodash';
 
 const getFileData = (filepath) => {
   // resolved relative paths to absolute paths
   const workingDirectory = process.cwd();
-  const resolvedPath = path.resolve(workingDirectory, filepath);
+  const resolvedPath = path.resolve(workingDirectory, '__fixtures__', filepath);
 
   // read contents of the files and parse them to return as string rathen than a JSON object
   return JSON.parse(fs.readFileSync(resolvedPath, 'utf-8'));
+};
+
+const JSONtoString = (json) => {
+  const stringJSON = JSON.stringify(json)
+    .replace(/"/g, '') // removing quotes
+    .replace(/,/g, '\n') // each key from new line
+    .replace('{', '{\n') // brackets on new lines
+    .replace('}', '\n}'); // brackets on new lines
+
+  return stringJSON;
 };
 
 const genDiff = (filepath1, filepath2) => {
@@ -41,13 +50,7 @@ const genDiff = (filepath1, filepath2) => {
     }
   }
 
-  const stringJSON = JSON.stringify(result)
-    .replace(/"/g, '') // removing quotes
-    .replace(/,/g, '\n') // each key from new line
-    .replace('{', '{\n') // brackets on new lines
-    .replace('}', '\n}'); // brackets on new lines
-
-  return stringJSON;
+  return JSONtoString(result);
 };
 
 export default genDiff;
