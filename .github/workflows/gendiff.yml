@@ -19,10 +19,10 @@ jobs:
           cache: 'npm'
       - run: make lint
       - run: make test
-      - name: Test & publish code coverage
-      - uses: paambaati/codeclimate-action@v2.7.4
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_KEY }}
-        with:
-          coverageCommand: make test-coverage
-          debug: true
+      # - name: Test & publish code coverage
+      # - uses: paambaati/codeclimate-action@v2.7.4
+      #   env:
+      #     CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_KEY }}
+      #   with:
+      #     coverageCommand: make test-coverage
+      #     debug: true
