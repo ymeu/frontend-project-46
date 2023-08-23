@@ -13,7 +13,7 @@ const getFileData = (filepath) => {
 };
 
 // const fileType = path.extname(filepath);
-// return fileType === '.json' 
+// return fileType === '.json'
 //   ? JSON.parse(fs.readFileSync(resolvedPath, 'utf-8'))
 //   : parse yaml here
 
