@@ -12,7 +12,12 @@ const getFileData = (filepath) => {
   return JSON.parse(fs.readFileSync(resolvedPath, 'utf-8'));
 };
 
-const JSONtoString = (json) => {
+// const fileType = path.extname(filepath);
+// return fileType === '.json' 
+//   ? JSON.parse(fs.readFileSync(resolvedPath, 'utf-8'))
+//   : parse yaml here
+
+const changeJSONtoString = (json) => {
   const stringJSON = JSON.stringify(json)
     .replace(/"/g, '') // removing quotes
     .replace(/,/g, '\n') // each key from new line
@@ -27,7 +32,7 @@ const genDiff = (filepath1, filepath2) => {
   const data1 = getFileData(filepath1);
   const data2 = getFileData(filepath2);
 
-  // sorting keys alphabatically
+  // getting keys and sorting them alphabatically
   const keys1 = _.sortBy(_.keys(data1));
   const keys2 = _.sortBy(_.keys(data2));
 
@@ -50,7 +55,7 @@ const genDiff = (filepath1, filepath2) => {
     }
   }
 
-  return JSONtoString(result);
+  return changeJSONtoString(result);
 };
 
 export default genDiff;
