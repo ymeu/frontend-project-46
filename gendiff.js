@@ -2,20 +2,15 @@
 import fs from 'fs';
 import * as path from 'path'; // Import the 'path' module
 import _ from 'lodash';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import * as yaml from 'js-yaml';
-// const fs   = require('fs');
+import parseFile from './parsers.js';
 
-const getFileData = (filepath) => {
+const getJSobject = (filepath) => {
   // resolved relative paths to absolute paths
   const workingDirectory = process.cwd();
   const resolvedPath = path.resolve(workingDirectory, '__fixtures__', filepath);
-
-  // read contents of the files and parse them to return a JavaScript object
+  const fileContent = fs.readFileSync(resolvedPath, 'utf-8');
   const fileType = path.extname(filepath);
-  return fileType === '.json'
-    ? JSON.parse(fs.readFileSync(resolvedPath, 'utf-8'))
-    : yaml.load(fs.readFileSync(resolvedPath, 'utf8'));
+  return parseFile(fileContent, fileType);
 };
 
 const makeString = (json) => {
@@ -30,8 +25,8 @@ const makeString = (json) => {
 
 const genDiff = (filepath1, filepath2) => {
   const result = {};
-  const data1 = getFileData(filepath1);
-  const data2 = getFileData(filepath2);
+  const data1 = getJSobject(filepath1);
+  const data2 = getJSobject(filepath2);
 
   // getting keys and sorting them alphabatically
   const keys1 = _.sortBy(_.keys(data1));
