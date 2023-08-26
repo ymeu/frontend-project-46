@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url';
 import path from 'path';
 import genDiff from '../gendiff.js';
-import testData from '../testData.js';
+// import testData from '../testData.js';
 // eslint-disable-next-line import/order
 import fs from 'fs';
 
@@ -19,7 +19,10 @@ test('JSONgenDiff', () => {
 });
 
 test('YAMLgenDiff', () => {
-  const actual = testData('expected.txt');
+  const actual = genDiff(
+    'file1.yml',
+    'file2.yml',
+  );
   expect(actual).toEqual(expected);
 });
 

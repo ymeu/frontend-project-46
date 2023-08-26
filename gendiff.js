@@ -2,22 +2,23 @@
 import fs from 'fs';
 import * as path from 'path'; // Import the 'path' module
 import _ from 'lodash';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import * as yaml from 'js-yaml';
+// const fs   = require('fs');
 
 const getFileData = (filepath) => {
   // resolved relative paths to absolute paths
   const workingDirectory = process.cwd();
   const resolvedPath = path.resolve(workingDirectory, '__fixtures__', filepath);
 
-  // read contents of the files and parse them to return as string rathen than a JSON object
-  return JSON.parse(fs.readFileSync(resolvedPath, 'utf-8'));
+  // read contents of the files and parse them to return a JavaScript object
+  const fileType = path.extname(filepath);
+  return fileType === '.json'
+    ? JSON.parse(fs.readFileSync(resolvedPath, 'utf-8'))
+    : yaml.load(fs.readFileSync(resolvedPath, 'utf8'));
 };
 
-// const fileType = path.extname(filepath);
-// return fileType === '.json'
-//   ? JSON.parse(fs.readFileSync(resolvedPath, 'utf-8'))
-//   : parse yaml here
-
-const changeJSONtoString = (json) => {
+const makeString = (json) => {
   const stringJSON = JSON.stringify(json)
     .replace(/"/g, '') // removing quotes
     .replace(/,/g, '\n') // each key from new line
@@ -55,7 +56,7 @@ const genDiff = (filepath1, filepath2) => {
     }
   }
 
-  return changeJSONtoString(result);
+  return makeString(result);
 };
 
 export default genDiff;
