@@ -6,4 +6,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/5d57649d06b0f446da42/test_coverage)](https://codeclimate.com/github/ymeu/frontend-project-46/test_coverage)
 
 Example of the work
+JSON:
 https://asciinema.org/a/jXUbdfucImjmBI4r3TpAtoJOf
+YAML:
+https://asciinema.org/a/MEdN4To5JbujpH0OKEkqGO1qz
