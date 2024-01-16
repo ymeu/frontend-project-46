@@ -5,11 +5,15 @@ import _ from 'lodash';
 import parseFile from './parsers.js';
 
 const getJSobject = (filepath) => {
-  // resolved relative paths to absolute paths
+  // Get the absolute path of the current working directory
   const workingDirectory = process.cwd();
+  // Resolve the filepath using the absolute path of the working directory
   const resolvedPath = path.resolve(workingDirectory, '__fixtures__', filepath);
+  // Read the content of the file
   const fileContent = fs.readFileSync(resolvedPath, 'utf-8');
+  // Determine the file type based on the extension
   const fileType = path.extname(filepath);
+  // Parse the file content based on the file type
   return parseFile(fileContent, fileType);
 };
 
