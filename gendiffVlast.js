@@ -3,7 +3,6 @@ import fs from 'fs';
 import * as path from 'path'; // Import the 'path' module
 import _ from 'lodash';
 import parseFile from './parsers.js';
-import formatStyle from './stylish.js';
 
 const getJSobject = (filepath) => {
   // Get the absolute path of the current working directory
@@ -18,7 +17,15 @@ const getJSobject = (filepath) => {
   return parseFile(fileContent, fileType);
 };
 
-const makeString = (json) => JSON.stringify(json);
+const makeString = (json) => {
+  const stringJSON = JSON.stringify(json)
+    .replace(/"/g, '') // removing quotes
+    .replace(/,/g, '\n') // each key from new line
+    .replace('{', '{\n') // brackets on new lines
+    .replace('}', '\n}'); // brackets on new lines
+
+  return stringJSON;
+};
 
 const genDiff = (filepath1, filepath2) => {
   // parsing json to JS object
@@ -35,10 +42,17 @@ const genDiff = (filepath1, filepath2) => {
 
     data1 = currentValue1;
     data2 = currentValue2;
+    // const data1 = getJSobject(currentValue1);
+    // const data2 = getJSobject(currentValue2);
+
+    console.log('data1: ', data1);
+    console.log('data2: ', data2);
 
     // getting keys and sorting them alphabatically
     const keys1 = _.sortBy(_.keys(data1));
     const keys2 = _.sortBy(_.keys(data2));
+    console.log('keys1: ', keys1);
+    console.log('keys2: ', keys2);
 
     for (const key1 of keys1) {
       if (keys2.includes(key1)) {
@@ -61,7 +75,7 @@ const genDiff = (filepath1, filepath2) => {
 
     return makeString(result);
   };
-  return formatStyle(iter(data1, data2));
+  return iter(data1, data2);
 };
 
 export default genDiff;
