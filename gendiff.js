@@ -58,10 +58,12 @@ const genDiff = (filepath1, filepath2) => {
         result[`  + ${key2}`] = iter(data2[key2]);
       }
     }
-
+    // console.log(result);
     return makeString(result);
   };
+
   return formatStyle(iter(data1, data2));
+  // return iter(data1, data2);
 };
 
 export default genDiff;
